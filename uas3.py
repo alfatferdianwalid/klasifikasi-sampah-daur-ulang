@@ -27,13 +27,21 @@ st.markdown("""
 # ==========================================
 @st.cache_resource
 def load_my_model():
-    try:
-        return tf.keras.models.load_model('best_waste_model.h5')
-    except:
-        st.error("Model 'best_waste_model.h5' tidak ditemukan. Pastikan file ada di folder yang sama.")
+    # Mendapatkan path absolut folder tempat file .py berada
+    base_path = os.path.dirname(_file_)
+    model_path = os.path.join(base_path, 'best_waste_model.h5') # Pastikan nama file sesuai
+    
+    if os.path.exists(model_path):
+        try:
+            return tf.keras.models.load_model(model_path)
+        except Exception as e:
+            st.error(f"Model ditemukan tapi rusak: {e}")
+            return None
+    else:
+        st.error("File model.h5 tidak ditemukan!")
+        # Menampilkan daftar file untuk memantau apa yang di-upload ke GitHub
+        st.write("File di folder aplikasi:", os.listdir(base_path))
         return None
-
-model = load_my_model()
 
 # ==========================================
 # 3. NAVIGASI UTAMA (TABS) - MENGGANTIKAN SIDEBAR
@@ -231,4 +239,5 @@ with tab3:
             else:
 
                 st.error("Model tidak tersedia.")
+
 
