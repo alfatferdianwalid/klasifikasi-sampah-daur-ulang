@@ -28,7 +28,7 @@ st.markdown("""
 @st.cache_resource
 def load_my_model():
     try:
-        return tf.keras.models.load_model('model.h5')
+        return tf.keras.models.load_model('best_waste_model.h5')
     except:
         st.error("Model 'best_waste_model.h5' tidak ditemukan. Pastikan file ada di folder yang sama.")
         return None
@@ -231,3 +231,4 @@ with tab3:
             else:
 
                 st.error("Model tidak tersedia.")
+
