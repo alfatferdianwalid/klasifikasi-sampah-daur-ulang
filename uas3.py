@@ -37,7 +37,7 @@ def load_my_model():
     
     if os.path.exists(model_path):
         try:
-            return tf.keras.models.load_model(model_path)
+           return tf.keras.models.load_model(model_path, compile=False)
         except Exception as e:
             st.error(f"Model ditemukan tapi rusak: {e}")
             return None
@@ -128,3 +128,4 @@ with tab3:
                         st.info("💡 *Saran:* Olah sampah organik menjadi kompos atau buang limbah B3 ke tempat khusus.")
             else:
                 st.error("Model tidak ditemukan. Pastikan file 'best_waste_model.h5' ada di folder yang sama di GitHub.")
+
